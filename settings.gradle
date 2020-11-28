@@ -1,0 +1,2 @@
+rootProject.name='CrudApp'
+include ':app'

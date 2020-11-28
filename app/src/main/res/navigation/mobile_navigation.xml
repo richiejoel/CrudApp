@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.heavy.crudapp.fragments.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_registar_user"
+        android:name="com.heavy.crudapp.fragments.RegistrarUsuarioFragment"
+        android:label="@string/menu_registar_user"
+        tools:layout="@layout/fragment_registrar_usuario" />
+
+    <fragment
+        android:id="@+id/nav_consultar_user"
+        android:name="com.heavy.crudapp.fragments.ConsultarUsuarioFragment"
+        android:label="@string/menu_consultar_user"
+        tools:layout="@layout/fragment_consultar_usuario" />
+
+    <fragment
+        android:id="@+id/nav_consultar_user_list"
+        android:name="com.heavy.crudapp.fragments.ConsultarListaUsuariosFragment"
+        android:label="@string/menu_consultar_user_list"
+        tools:layout="@layout/fragment_consultar_lista_usuarios" />
+
+    <fragment
+        android:id="@+id/nav_desarrollador"
+        android:name="com.heavy.crudapp.fragments.DeveloperInfoFragment"
+        android:label="@string/menu_developer"
+        tools:layout="@layout/fragment_developer_info" />
+
+    <fragment
+        android:id="@+id/nav_consultar_user_list_image"
+        android:name="com.heavy.crudapp.fragments.ConsultarListaUsuariosImagenFragment"
+        android:label="@string/menu_consultar_user_list_image"
+        tools:layout="@layout/fragment_consultar_lista_usuarios_imagen" />
+
+    <fragment
+        android:id="@+id/nav_consultar_user_list_image_url"
+        android:name="com.heavy.crudapp.fragments.ConsultarListaUsuariosImagenUrlFragment"
+        android:label="@string/menu_consultar_user_list_image_url"
+        tools:layout="@layout/fragment_consultar_lista_usuarios_imagen_url" />
+
+</navigation>
