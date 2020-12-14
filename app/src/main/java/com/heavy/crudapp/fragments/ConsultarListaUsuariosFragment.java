@@ -94,7 +94,7 @@ public class ConsultarListaUsuariosFragment extends Fragment implements Response
         dialog = new ProgressDialog(getContext());
         dialog.setMessage("Loading...");
         dialog.show();
-        String url = "http://192.168.100.44:3000/consultarUsuariosAll";
+        String url = "http://192.168.100.44:3000/consultarUsuariosAllTxt";
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this, this);
         request.add(jsonObjectRequest);

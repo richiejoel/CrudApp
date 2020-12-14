@@ -10,11 +10,13 @@
     <string name="menu_home">Home</string>
     <string name="menu_registar_user">Registrar Usuario</string>
     <string name="menu_consultar_user">Consultar Usuario</string>
+    <string name="menu_consultar_user_url">Consultar Usuario Url</string>
     <string name="menu_consultar_user_list">Consultar Lista Usuario</string>
     <string name="menu_consultar_user_list_image">Consultar Usuarios Imagen</string>
     <string name="menu_developer">Developer</string>
+    <string name="menu_modificar_eliminar">Actualizar y eliminar usuarios</string>
     <string name="menu_consultar_user_list_image_url">Consultar Usuarios Imagen Url</string>
-    <string name="home_second">Home Second</string>
+    <string name="home_second">Home Second</string>s
 
     <!-- Home -->
     <string name="titleHome">Ejemplo de App con WebServices</string>
@@ -30,6 +32,7 @@
 
     <!-- Consultar Usuario -->
     <string name="titleConsulta">Consultar Usuarios</string>
+    <string name="titleConsultaUrl">Consultar Usuarios Url</string>
     <string name="documentoConsulta">Documento</string>
     <string name="nombreConsulta">Nombre</string>
     <string name="profesionConsulta">Profesión</string>
@@ -44,4 +47,15 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Modificar eliminar-->
+    <string name="titleUpdate">Modificar y Eliminar Usuarios</string>
+    <string name="documentoUpdate">Documento</string>
+    <string name="nombreUpdate">Nombre</string>
+    <string name="profesionUpdate">Profesión</string>
+    <string name="correoUpdate">Email</string>
+    <string name="btnUpdate">Actualizar</string>
+    <string name="btnDelete">Eliminar</string>
+    <string name="btnConsultarUpdate">S</string>
+
 </resources>

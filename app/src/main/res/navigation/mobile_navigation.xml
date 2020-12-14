@@ -48,5 +48,16 @@
         android:name="com.heavy.crudapp.fragments.ConsultarListaUsuariosImagenUrlFragment"
         android:label="@string/menu_consultar_user_list_image_url"
         tools:layout="@layout/fragment_consultar_lista_usuarios_imagen_url" />
+    <fragment
+        android:id="@+id/nav_consultar_user_url"
+        android:name="com.heavy.crudapp.fragments.ConsultarUsuarioUrlFragment"
+        android:label="@string/menu_consultar_user_url"
+        tools:layout="@layout/fragment_consultar_usuario_url" />
+    <fragment
+        android:id="@+id/nav_modificar_eliminar"
+        android:name="com.heavy.crudapp.fragments.ModificarEliminarFragment"
+        tools:layout="@layout/fragment_modificar_eliminar"
+        android:label="@string/menu_modificar_eliminar" />
+    />
 
 </navigation>

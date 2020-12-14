@@ -17,6 +17,10 @@
             android:icon="@drawable/ic_search_black_24dp"
             android:title="@string/menu_consultar_user" />
         <item
+            android:id="@+id/nav_consultar_user_url"
+            android:icon="@drawable/ic_search_black_24dp"
+            android:title="@string/menu_consultar_user_url" />
+        <item
             android:id="@+id/nav_consultar_user_list"
             android:icon="@drawable/ic_search_black_24dp"
             android:title="@string/menu_consultar_user_list" />
@@ -28,6 +32,10 @@
             android:id="@+id/nav_consultar_user_list_image_url"
             android:icon="@drawable/ic_search_black_24dp"
             android:title="@string/menu_consultar_user_list_image_url" />
+        <item
+            android:id="@+id/nav_modificar_eliminar"
+            android:icon="@drawable/ic_search_black_24dp"
+            android:title="@string/menu_modificar_eliminar" />
     </group>
     <item android:title="Información">
         <menu>
