@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.heavy.crudapp.R;
 import com.heavy.crudapp.entidades.Usuario;
 
@@ -41,8 +42,8 @@ public class UsuariosImagenUrlAdapter extends RecyclerView.Adapter<UsuariosImage
         holder.listaProfesion.setText(listaUsuarios.get(position).getProfesion().toString());
 
         if(listaUsuarios.get(position).getImageUrl() != null){
-            Glide.with(ctx).load(CONS_SERVER + listaUsuarios.get(position).getImageUrl()).into(holder.imagenLista);
-            System.out.println("JOel -> "+CONS_SERVER + listaUsuarios.get(position).getImageUrl());
+            Glide.with(ctx).load(CONS_SERVER + listaUsuarios.get(position).getImageUrl()).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(holder.imagenLista);
+            System.out.println("Joel -> "+CONS_SERVER + listaUsuarios.get(position).getImageUrl());
         } else {
             holder.imagenLista.setImageResource(R.drawable.img_base);
         }

@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.heavy.crudapp.R;
 import com.heavy.crudapp.entidades.Usuario;
 
@@ -98,7 +99,7 @@ public class ConsultarUsuarioUrlFragment extends Fragment implements Response.Li
             profesionConsulta.setText(usuario.getProfesion());
             correoConsulta.setText(usuario.getCorreo());
             if(usuario.getImageUrl() != null){
-                Glide.with(getContext()).load(CONS_SERVER + usuario.getImageUrl()).into(imagen);
+                Glide.with(getContext()).load(CONS_SERVER + usuario.getImageUrl()).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(imagen);
                 imagen.setImageBitmap(usuario.getImagen());
             } else {
                 imagen.setImageResource(R.drawable.img_base);

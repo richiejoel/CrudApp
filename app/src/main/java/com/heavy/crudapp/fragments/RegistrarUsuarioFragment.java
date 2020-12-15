@@ -273,6 +273,7 @@ public class RegistrarUsuarioFragment extends Fragment implements Response.Liste
                     Toast.makeText(getContext(),"Los permisos no fueron aceptados",Toast.LENGTH_SHORT).show();
                     dialogInterface.dismiss();
                 }
+
             }
         });
         alertOpciones.show();
