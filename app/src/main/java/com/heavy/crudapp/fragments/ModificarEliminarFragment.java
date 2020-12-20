@@ -368,8 +368,10 @@ public class ModificarEliminarFragment extends Fragment implements Response.List
     private String mConvertImageToString(){
         try {
             Bitmap bitmap = null;
-            bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),imageServer);
-
+            File file = new File(this.currentPhotoPath);
+            Uri uri = Uri.fromFile(file);
+            bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri);
+            bitmap = getRezidBitmap(bitmap, 1024);
             ByteArrayOutputStream array=new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG,100,array);
             byte[] imagenByte=array.toByteArray();
@@ -387,5 +389,26 @@ public class ModificarEliminarFragment extends Fragment implements Response.List
         correoUpdate.setText("");
         profesionUpdate.setText("");
         imagen.setImageResource(R.drawable.img_base);
+    }
+
+    private Bitmap getRezidBitmap (Bitmap bitmap, int maxSize){
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+
+        if(width <= maxSize && width <= maxSize){
+            return bitmap;
+        }
+
+        float bitmapRatio = (float) width / (float) height;
+        if(bitmapRatio > 1){
+            width = maxSize;
+            height = (int) (width/bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+
+        return Bitmap.createScaledBitmap(bitmap,width, height, true);
+
     }
 }

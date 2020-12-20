@@ -34,7 +34,7 @@
             android:title="@string/menu_consultar_user_list_image_url" />
         <item
             android:id="@+id/nav_modificar_eliminar"
-            android:icon="@drawable/ic_search_black_24dp"
+            android:icon="@drawable/ic_update_grey_24dp"
             android:title="@string/menu_modificar_eliminar" />
     </group>
     <item android:title="Información">
