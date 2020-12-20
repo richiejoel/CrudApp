@@ -38,6 +38,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.heavy.crudapp.MainActivity;
 import com.heavy.crudapp.R;
+import com.heavy.crudapp.entidades.NetworkSingleton;
+import com.heavy.crudapp.entidades.VolleySingleton;
 
 import org.json.JSONObject;
 
@@ -59,7 +61,7 @@ public class RegistrarUsuarioFragment extends Fragment implements Response.Liste
     Button btnRegistrar, btnFoto;
     ImageView registroImagen;
     ProgressDialog dialog;
-    RequestQueue request;
+    //RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     String currentPhotoPath;
     Uri imageServer;
@@ -98,7 +100,7 @@ public class RegistrarUsuarioFragment extends Fragment implements Response.Liste
         btnRegistrar = view.findViewById(R.id.btnRegistrar);
         btnFoto = view.findViewById(R.id.btnFoto);
 
-        request = Volley.newRequestQueue(getContext());
+        //request = Volley.newRequestQueue(getContext());
         btnRegistrar.setOnClickListener(this);
         btnFoto.setOnClickListener(this);
 
@@ -298,7 +300,9 @@ public class RegistrarUsuarioFragment extends Fragment implements Response.Liste
         dialog = new ProgressDialog(getContext());
         dialog.setMessage("Loading...");
         dialog.show();
-        String url = "http://192.168.100.44:3000/signup";
+
+        NetworkSingleton.getObInstanceNetwork(getContext());
+        String url = NetworkSingleton.getProtocol()+"://"+NetworkSingleton.getIp()+":"+NetworkSingleton.getPort()+"/signup";
 
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("email", registroCorreo.getText().toString());
@@ -309,7 +313,8 @@ public class RegistrarUsuarioFragment extends Fragment implements Response.Liste
         params.put("imgbase64",mConvertImageToString());
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,url,new JSONObject(params),this, this);
-        request.add(jsonObjectRequest);
+        //request.add(jsonObjectRequest);
+        VolleySingleton.getObInstanceVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     private String mConvertImageToString(){

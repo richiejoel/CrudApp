@@ -42,7 +42,9 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.heavy.crudapp.R;
+import com.heavy.crudapp.entidades.NetworkSingleton;
 import com.heavy.crudapp.entidades.Usuario;
+import com.heavy.crudapp.entidades.VolleySingleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,7 +68,7 @@ public class ModificarEliminarFragment extends Fragment implements Response.List
     Button btnUpdate, btnDelete;
     ImageButton btnConsultarUp;
     ProgressDialog dialog;
-    RequestQueue request;
+    //RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     String currentPhotoPath;
     Uri imageServer;
@@ -102,7 +104,7 @@ public class ModificarEliminarFragment extends Fragment implements Response.List
         btnUpdate = view.findViewById(R.id.btnUpdate);
         btnDelete = view.findViewById(R.id.btnDelete);
 
-        request = Volley.newRequestQueue(getContext());
+        //request = Volley.newRequestQueue(getContext());
         btnConsultarUp.setOnClickListener(this);
         btnUpdate.setOnClickListener(this);
         btnDelete.setOnClickListener(this);
@@ -176,13 +178,16 @@ public class ModificarEliminarFragment extends Fragment implements Response.List
         dialog = new ProgressDialog(getContext());
         dialog.setMessage("Loading...");
         dialog.show();
-        String url = "http://192.168.100.44:3000/consultarUsuarioUrl";
+
+        NetworkSingleton.getObInstanceNetwork(getContext());
+        String url = NetworkSingleton.getProtocol()+"://"+NetworkSingleton.getIp()+":"+NetworkSingleton.getPort()+"/consultarUsuarioUrl";
 
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("document", documentoUpdate.getText().toString());
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,url,new JSONObject(params),this, this);
-        request.add(jsonObjectRequest);
+        //request.add(jsonObjectRequest);
+        VolleySingleton.getObInstanceVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     private void mUpdateUsers() {
@@ -190,7 +195,9 @@ public class ModificarEliminarFragment extends Fragment implements Response.List
         dialog = new ProgressDialog(getContext());
         dialog.setMessage("Loading...");
         dialog.show();
-        String url = "http://192.168.100.44:3000/updateUser";
+
+        NetworkSingleton.getObInstanceNetwork(getContext());
+        String url = NetworkSingleton.getProtocol()+"://"+NetworkSingleton.getIp()+":"+NetworkSingleton.getPort()+"/updateUser";
 
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("document", documentoUpdate.getText().toString());
@@ -200,7 +207,8 @@ public class ModificarEliminarFragment extends Fragment implements Response.List
         params.put("imgbase64",mConvertImageToString());
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT,url,new JSONObject(params),this, this);
-        request.add(jsonObjectRequest);
+        //request.add(jsonObjectRequest);
+        VolleySingleton.getObInstanceVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     private void mDeleteUser(){
@@ -208,13 +216,16 @@ public class ModificarEliminarFragment extends Fragment implements Response.List
         dialog = new ProgressDialog(getContext());
         dialog.setMessage("Loading...");
         dialog.show();
-        String url = "http://192.168.100.44:3000/deleteOneUser";
+
+        NetworkSingleton.getObInstanceNetwork(getContext());
+        String url = NetworkSingleton.getProtocol()+"://"+NetworkSingleton.getIp()+":"+NetworkSingleton.getPort()+"/deleteOneUser";
 
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("document", documentoUpdate.getText().toString());
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,url,new JSONObject(params),this, this);
-        request.add(jsonObjectRequest);
+        //request.add(jsonObjectRequest);
+        VolleySingleton.getObInstanceVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     private void mMostrarDialogoOpciones(){

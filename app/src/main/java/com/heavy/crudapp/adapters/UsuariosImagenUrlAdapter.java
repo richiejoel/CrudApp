@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.heavy.crudapp.R;
+import com.heavy.crudapp.entidades.NetworkSingleton;
 import com.heavy.crudapp.entidades.Usuario;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class UsuariosImagenUrlAdapter extends RecyclerView.Adapter<UsuariosImage
 
     ArrayList<Usuario> listaUsuarios;
     private Context ctx;
-    private static final String CONS_SERVER = "http://192.168.100.44:3000/";
+    private String CONS_SERVER = "";
 
     public UsuariosImagenUrlAdapter(ArrayList<Usuario> listaUsuarios, Context ctx) {
         this.listaUsuarios = listaUsuarios;
@@ -42,8 +43,10 @@ public class UsuariosImagenUrlAdapter extends RecyclerView.Adapter<UsuariosImage
         holder.listaProfesion.setText(listaUsuarios.get(position).getProfesion().toString());
 
         if(listaUsuarios.get(position).getImageUrl() != null){
+            NetworkSingleton.getObInstanceNetwork(this.ctx);
+            CONS_SERVER = NetworkSingleton.getProtocol()+"://"+NetworkSingleton.getIp()+":"+NetworkSingleton.getPort()+"/";
             Glide.with(ctx).load(CONS_SERVER + listaUsuarios.get(position).getImageUrl()).diskCacheStrategy(DiskCacheStrategy.NONE).skipMemoryCache(true).into(holder.imagenLista);
-            System.out.println("Joel -> "+CONS_SERVER + listaUsuarios.get(position).getImageUrl());
+            System.out.println("URL IMAGEN -> "+CONS_SERVER + listaUsuarios.get(position).getImageUrl());
         } else {
             holder.imagenLista.setImageResource(R.drawable.img_base);
         }

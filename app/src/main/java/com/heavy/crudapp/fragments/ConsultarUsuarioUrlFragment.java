@@ -24,7 +24,9 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.heavy.crudapp.R;
+import com.heavy.crudapp.entidades.NetworkSingleton;
 import com.heavy.crudapp.entidades.Usuario;
+import com.heavy.crudapp.entidades.VolleySingleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,7 +43,7 @@ public class ConsultarUsuarioUrlFragment extends Fragment implements Response.Li
     ImageView imagen;
     Button btnConsultar;
     ProgressDialog dialog;
-    RequestQueue request;
+    //RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     private static final String CONS_SERVER = "http://192.168.100.44:3000/";
 
@@ -62,7 +64,7 @@ public class ConsultarUsuarioUrlFragment extends Fragment implements Response.Li
         imagen = view.findViewById(R.id.imagen);
         btnConsultar = view.findViewById(R.id.btnConsultar);
 
-        request = Volley.newRequestQueue(getContext());
+        //request = Volley.newRequestQueue(getContext());
         btnConsultar.setOnClickListener(this);
 
 
@@ -118,12 +120,15 @@ public class ConsultarUsuarioUrlFragment extends Fragment implements Response.Li
         dialog = new ProgressDialog(getContext());
         dialog.setMessage("Loading...");
         dialog.show();
-        String url = "http://192.168.100.44:3000/consultarUsuarioUrl";
+
+        NetworkSingleton.getObInstanceNetwork(getContext());
+        String url = NetworkSingleton.getProtocol()+"://"+NetworkSingleton.getIp()+":"+NetworkSingleton.getPort()+"/consultarUsuarioUrl";
 
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("document", documentoConsulta.getText().toString());
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,url,new JSONObject(params),this, this);
-        request.add(jsonObjectRequest);
+        //request.add(jsonObjectRequest);
+        VolleySingleton.getObInstanceVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 }

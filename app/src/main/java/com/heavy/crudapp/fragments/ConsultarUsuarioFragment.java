@@ -26,7 +26,9 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.heavy.crudapp.R;
+import com.heavy.crudapp.entidades.NetworkSingleton;
 import com.heavy.crudapp.entidades.Usuario;
+import com.heavy.crudapp.entidades.VolleySingleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,7 +44,7 @@ public class ConsultarUsuarioFragment extends Fragment implements Response.Liste
     ImageView imagen;
     Button btnConsultar;
     ProgressDialog dialog;
-    RequestQueue request;
+    //RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
 
     public ConsultarUsuarioFragment() {
@@ -62,7 +64,7 @@ public class ConsultarUsuarioFragment extends Fragment implements Response.Liste
         imagen = view.findViewById(R.id.imagen);
         btnConsultar = view.findViewById(R.id.btnConsultar);
 
-        request = Volley.newRequestQueue(getContext());
+        //request = Volley.newRequestQueue(getContext());
         btnConsultar.setOnClickListener(this);
 
 
@@ -119,12 +121,15 @@ public class ConsultarUsuarioFragment extends Fragment implements Response.Liste
         dialog = new ProgressDialog(getContext());
         dialog.setMessage("Loading...");
         dialog.show();
-        String url = "http://192.168.100.44:3000/consultarUsuario";
+
+        NetworkSingleton.getObInstanceNetwork(getContext());
+        String url = NetworkSingleton.getProtocol()+"://"+NetworkSingleton.getIp()+":"+NetworkSingleton.getPort()+"/consultarUsuario";
 
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("document", documentoConsulta.getText().toString());
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,url,new JSONObject(params),this, this);
-        request.add(jsonObjectRequest);
+        //request.add(jsonObjectRequest);
+        VolleySingleton.getObInstanceVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 }

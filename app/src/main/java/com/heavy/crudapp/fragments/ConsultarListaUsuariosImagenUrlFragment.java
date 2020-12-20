@@ -21,7 +21,9 @@ import com.android.volley.toolbox.Volley;
 import com.heavy.crudapp.R;
 import com.heavy.crudapp.adapters.UsuariosImagenAdapter;
 import com.heavy.crudapp.adapters.UsuariosImagenUrlAdapter;
+import com.heavy.crudapp.entidades.NetworkSingleton;
 import com.heavy.crudapp.entidades.Usuario;
+import com.heavy.crudapp.entidades.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +39,7 @@ public class ConsultarListaUsuariosImagenUrlFragment extends Fragment implements
     RecyclerView recyclerViewUsuarios;
     ArrayList<Usuario> listaUsuarios;
     ProgressDialog dialog;
-    RequestQueue request;
+    //RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
 
     public ConsultarListaUsuariosImagenUrlFragment() {
@@ -55,7 +57,7 @@ public class ConsultarListaUsuariosImagenUrlFragment extends Fragment implements
         listaUsuarios = new ArrayList<>();
         recyclerViewUsuarios.setLayoutManager(new LinearLayoutManager(getContext()));
         //recyclerViewUsuarios.setHasFixedSize(true);
-        request = Volley.newRequestQueue(getContext());
+        //request = Volley.newRequestQueue(getContext());
         mConsultarAllUsuariosImageUrl();
         return view;
     }
@@ -96,9 +98,11 @@ public class ConsultarListaUsuariosImagenUrlFragment extends Fragment implements
         dialog = new ProgressDialog(getContext());
         dialog.setMessage("Loading...");
         dialog.show();
-        String url = "http://192.168.100.44:3000/consultarUsuariosUrlAll";
+
+        NetworkSingleton.getObInstanceNetwork(getContext());
+        String url = NetworkSingleton.getProtocol()+"://"+NetworkSingleton.getIp()+":"+NetworkSingleton.getPort()+"/consultarUsuariosUrlAll";
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this, this);
-        request.add(jsonObjectRequest);
+        VolleySingleton.getObInstanceVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 }

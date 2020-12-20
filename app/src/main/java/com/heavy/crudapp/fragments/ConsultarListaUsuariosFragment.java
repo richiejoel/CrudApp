@@ -21,7 +21,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.heavy.crudapp.R;
 import com.heavy.crudapp.adapters.UsuariosAdapter;
+import com.heavy.crudapp.entidades.NetworkSingleton;
 import com.heavy.crudapp.entidades.Usuario;
+import com.heavy.crudapp.entidades.VolleySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +36,7 @@ public class ConsultarListaUsuariosFragment extends Fragment implements Response
     RecyclerView recyclerViewUsuarios;
     ArrayList<Usuario> listaUsuarios;
     ProgressDialog dialog;
-    RequestQueue request;
+    //RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
 
 
@@ -52,7 +54,7 @@ public class ConsultarListaUsuariosFragment extends Fragment implements Response
         listaUsuarios = new ArrayList<>();
         recyclerViewUsuarios.setLayoutManager(new LinearLayoutManager(getContext()));
         //recyclerViewUsuarios.setHasFixedSize(true);
-        request = Volley.newRequestQueue(getContext());
+        //request = Volley.newRequestQueue(getContext());
         mConsultarAllUsuarios();
 
         return view;
@@ -94,9 +96,11 @@ public class ConsultarListaUsuariosFragment extends Fragment implements Response
         dialog = new ProgressDialog(getContext());
         dialog.setMessage("Loading...");
         dialog.show();
-        String url = "http://192.168.100.44:3000/consultarUsuariosAllTxt";
+        NetworkSingleton.getObInstanceNetwork(getContext());
+        String url = NetworkSingleton.getProtocol()+"://"+NetworkSingleton.getIp()+":"+NetworkSingleton.getPort()+"/consultarUsuariosAllTxt";
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,url,null,this, this);
-        request.add(jsonObjectRequest);
+        //request.add(jsonObjectRequest);
+        VolleySingleton.getObInstanceVolley(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 }
