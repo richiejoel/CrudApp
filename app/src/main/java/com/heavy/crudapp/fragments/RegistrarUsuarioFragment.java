@@ -64,6 +64,9 @@ public class RegistrarUsuarioFragment extends Fragment implements Response.Liste
     String currentPhotoPath;
     Uri imageServer;
 
+    boolean isGallery = false;
+    boolean isCamera = false;
+
     //Codes permission
     private static final int REQUEST_PERMISSION_CODE_GALLERY = 100;
     private static final int REQUEST_IMAGE_GALLERY = 101;
@@ -129,6 +132,8 @@ public class RegistrarUsuarioFragment extends Fragment implements Response.Liste
     }
 
     private void mMostrarDialogoOpciones(){
+        this.isCamera = false;
+        this.isGallery = false;
         final CharSequence[] opciones = {"Tomar Foto", "Cargar Imagen", "Cancelar"};
         final AlertDialog.Builder alertOpciones = new AlertDialog.Builder(getContext());
         alertOpciones.setTitle("Seleccione una opción");
@@ -244,6 +249,7 @@ public class RegistrarUsuarioFragment extends Fragment implements Response.Liste
                 Uri photo = data.getData();
                 registroImagen.setImageURI(photo);
                 imageServer = photo;
+                this.isGallery = true;
             } else {
                 Toast.makeText(getContext(),"You didn't choose any picture",Toast.LENGTH_SHORT).show();
             }
@@ -252,6 +258,7 @@ public class RegistrarUsuarioFragment extends Fragment implements Response.Liste
             if(resultCode == Activity.RESULT_OK){
                 registroImagen.setImageURI(Uri.parse(currentPhotoPath));
                 imageServer = Uri.parse(currentPhotoPath);
+                this.isCamera = true;
             }
         }
     }
@@ -308,10 +315,14 @@ public class RegistrarUsuarioFragment extends Fragment implements Response.Liste
     private String mConvertImageToString(){
         try {
             Bitmap bitmap = null;
-            File file = new File(this.currentPhotoPath);
-            Uri uri = Uri.fromFile(file);
-            bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri);
-            bitmap = getRezidBitmap(bitmap, 1024);
+            if(this.isGallery){
+                bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),imageServer);
+            } else if(this.isCamera){
+                File file = new File(this.currentPhotoPath);
+                Uri uri = Uri.fromFile(file);
+                bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri);
+                bitmap = getRezidBitmap(bitmap, 1024);
+            }
             ByteArrayOutputStream array=new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG,100,array);
             byte[] imagenByte=array.toByteArray();
