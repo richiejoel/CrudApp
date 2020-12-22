@@ -1,6 +1,9 @@
 package com.heavy.crudapp.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -41,6 +45,7 @@ public class ConsultarListaUsuariosImagenUrlFragment extends Fragment implements
     ProgressDialog dialog;
     //RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
+    ImageView noNetworkImage;
 
     public ConsultarListaUsuariosImagenUrlFragment() {
         // Required empty public constructor
@@ -54,11 +59,23 @@ public class ConsultarListaUsuariosImagenUrlFragment extends Fragment implements
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_consultar_lista_usuarios_imagen_url, container, false);
         recyclerViewUsuarios = view.findViewById(R.id.recyclerImagenUrl);
+        noNetworkImage = view.findViewById(R.id.imageNoNetwork);
         listaUsuarios = new ArrayList<>();
         recyclerViewUsuarios.setLayoutManager(new LinearLayoutManager(getContext()));
+        noNetworkImage.setVisibility(View.INVISIBLE);
         //recyclerViewUsuarios.setHasFixedSize(true);
         //request = Volley.newRequestQueue(getContext());
-        mConsultarAllUsuariosImageUrl();
+        ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if(networkInfo != null && networkInfo.isConnected()){
+            noNetworkImage.setVisibility(View.INVISIBLE);
+            mConsultarAllUsuariosImageUrl();
+        } else {
+            noNetworkImage.setVisibility(View.VISIBLE);
+            Toast.makeText(getContext(),"Revise su conexión a Internet", Toast.LENGTH_SHORT).show();
+        }
+
         return view;
     }
 

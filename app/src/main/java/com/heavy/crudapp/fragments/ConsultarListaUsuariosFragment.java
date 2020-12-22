@@ -1,6 +1,9 @@
 package com.heavy.crudapp.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -38,6 +42,7 @@ public class ConsultarListaUsuariosFragment extends Fragment implements Response
     ProgressDialog dialog;
     //RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
+    ImageView noNetworkImage;
 
 
     public ConsultarListaUsuariosFragment() {
@@ -51,11 +56,24 @@ public class ConsultarListaUsuariosFragment extends Fragment implements Response
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_consultar_lista_usuarios, container, false);
         recyclerViewUsuarios = view.findViewById(R.id.recycler);
+        noNetworkImage = view.findViewById(R.id.imageNoNetwork);
         listaUsuarios = new ArrayList<>();
         recyclerViewUsuarios.setLayoutManager(new LinearLayoutManager(getContext()));
+        noNetworkImage.setVisibility(View.INVISIBLE);
         //recyclerViewUsuarios.setHasFixedSize(true);
         //request = Volley.newRequestQueue(getContext());
-        mConsultarAllUsuarios();
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if(networkInfo != null && networkInfo.isConnected()){
+            noNetworkImage.setVisibility(View.INVISIBLE);
+            mConsultarAllUsuarios();
+        } else {
+            noNetworkImage.setVisibility(View.VISIBLE);
+            Toast.makeText(getContext(),"Revise su conexión a Internet", Toast.LENGTH_SHORT).show();
+        }
+
 
         return view;
     }
