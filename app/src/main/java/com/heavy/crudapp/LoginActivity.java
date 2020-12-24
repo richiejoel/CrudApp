@@ -53,6 +53,8 @@ public class LoginActivity extends AppCompatActivity implements Response.Listene
                 mIniciarSesion();
                 break;
             case R.id.registerHere:
+                Intent registro = new Intent(LoginActivity.this, RegistroUsuarioActivity.class);
+                startActivity(registro);
                 break;
         }
     }
